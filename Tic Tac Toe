@@ -44,18 +44,27 @@ namespace tic_tac_toe
                                               {'-','-','-'},
                                               {'-','-','-'} };
             bool xTurn = true;
-            while (xTurn)
+            while (true)
             {
                 int playerInputX = int.Parse(Console.ReadLine());
                 int playerInputY = int.Parse(Console.ReadLine());
-                playerInputX--;
-                playerInputY--;
+                if(playerInputX > 2 || playerInputY > 2 ){
+                  Console.WriteLine("Invalid input");
+                }
+                
                 Console.Clear();
 
                 if (gameboard[playerInputX, playerInputY] == '-')
                 {
-
+                  if(xTurn){
+                      gameboard[playerInputX, playerInputY] = 'X';
+                  }
+                  else{
+                    gameboard[playerInputX, playerInputY] = 'O';
+                  }
+                  
                 }
+                
                 else
                 {
                     Console.WriteLine("Invalid input");
@@ -69,6 +78,8 @@ namespace tic_tac_toe
                     Console.WriteLine();
 
                 }
+
+                xTurn = !xTurn;
             }
         }
     }
