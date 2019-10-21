@@ -24,7 +24,9 @@ namespace tic_tac_toe
                         PlayGame();
                         break;
                     case "2":
-                        Console.WriteLine("bla bal");
+                        Console.WriteLine("First enter your X coordinate and press enter afterwards you do the same with your Y coordinate, you cannot place your mark on an allready occupied square, if you try it wil be the next persons turn \n if you enter an 'invalid input' you will forfeit the game and reset the board. \n\n press enter to return");
+                        Console.ReadKey();
+                        Console.Clear();
                         break;
                     case "3":
                         quit = true;
@@ -49,9 +51,9 @@ namespace tic_tac_toe
                 int playerInputX = int.Parse(Console.ReadLine());
                 int playerInputY = int.Parse(Console.ReadLine());
                 if(playerInputX > 2 || playerInputY > 2 ){
-                  Console.WriteLine("Invalid input");
+                  Console.WriteLine("Invalid input, you lose");
+                  Console.ReadKey();
                 }
-                
                 Console.Clear();
 
                 if (gameboard[playerInputX, playerInputY] == '-')
@@ -64,11 +66,10 @@ namespace tic_tac_toe
                   }
                   
                 }
-                
                 else
                 {
-                    Console.WriteLine("Invalid input");
-
+                    Console.WriteLine("Invalid input, you lose");
+                    Console.ReadKey();
                 }
 
                 for (int i = 0; i < gameboard.GetLength(0); i++)
