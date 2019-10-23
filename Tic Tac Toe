@@ -24,7 +24,7 @@ namespace tic_tac_toe
                         PlayGame();
                         break;
                     case "2":
-                        Console.WriteLine("First enter your X coordinate and press enter afterwards you do the same with your Y coordinate, you cannot place your mark on an allready occupied square, if you try it wil be the next persons turn \n if you enter an 'invalid input' you will forfeit the game and reset the board. \n\n press enter to return");
+                        Console.WriteLine("First enter your X coordinate and press enter afterwards you do the same with your Y coordinate, you cannot place your mark on an allready occupied square, if you try it wil be the next persons turn \n if you enter an 'invalid input' you will forfeit the game and reset the board.\n\npress enter to return");
                         Console.ReadKey();
                         Console.Clear();
                         break;
@@ -37,37 +37,49 @@ namespace tic_tac_toe
                         Console.Clear();
                         break;
                 }
-            }     
+            }
         }
 
-        static void PlayGame(){
+        static void PlayGame()
+        {
             Char[,] gameboard = new char[,] { {'-','-','-'},
                                               {'-','-','-'},
                                               {'-','-','-'} };
 
             for (int i = 0; i < gameboard.GetLength(0); i++)
-                {
-                    for (int j = 0; j < gameboard.GetLength(1); j++)
-                        Console.Write(gameboard[i, j]);
-                    Console.WriteLine();
-                }
+            {
+                for (int j = 0; j < gameboard.GetLength(1); j++)
+                    Console.Write(gameboard[i, j]);
+                Console.WriteLine();
+            }
 
             bool xTurn = true;
-            
+
             while (true)
             {
-                bool haswonX = checkWinX(gameboard);
-                bool haswonO = checkWinO(gameboard);
-                
-                if(haswonX == true){
+                bool haswonX = CheckWinX(gameboard);
+                bool haswonO = CheckWinO(gameboard);
+                bool draw = CheckDraw(gameboard);
+
+                if (haswonX == true)
+                {
                     Console.WriteLine("X is the winner!");
                     Console.ReadKey();
                     Console.Clear();
                     Main(null);
                 }
-                
-                if(haswonO == true){
+
+                if (haswonO == true)
+                {
                     Console.WriteLine("O is the winner!");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Main(null);
+                }
+
+                if (draw == true)
+                {
+                    Console.WriteLine("It's a draw!");
                     Console.ReadKey();
                     Console.Clear();
                     Main(null);
@@ -75,32 +87,35 @@ namespace tic_tac_toe
 
                 int playerInputX = int.Parse(Console.ReadLine());
                 int playerInputY = int.Parse(Console.ReadLine());
-                if(playerInputX > 2 || playerInputY > 2 ){
-                  Console.WriteLine("Invalid input, you lose");
-                  Console.ReadKey();
-                  Console.Clear();
-                  PlayGame();
+                if (playerInputX > 2 || playerInputY > 2)
+                {
+                    Console.WriteLine("Invalid input, you lose");
+                    Console.ReadKey();
+                    Console.Clear();
+                    PlayGame();
                 }
                 Console.Clear();
 
                 if (gameboard[playerInputY, playerInputX] == '-')
                 {
-                  if(xTurn){
-                      gameboard[playerInputY, playerInputX] = 'X';
-                  }
-                  else{
-                    gameboard[playerInputY, playerInputX] = 'O';
-                  }
-                  
+                    if (xTurn)
+                    {
+                        gameboard[playerInputY, playerInputX] = 'X';
+                    }
+                    else
+                    {
+                        gameboard[playerInputY, playerInputX] = 'O';
+                    }
+
                 }
                 else
                 {
                     Console.WriteLine("Invalid input");
                     Console.ReadKey();
                 }
-                
-                
-                
+
+
+
                 for (int i = 0; i < gameboard.GetLength(0); i++)
                 {
                     for (int j = 0; j < gameboard.GetLength(1); j++)
@@ -112,62 +127,97 @@ namespace tic_tac_toe
         }
 
 
-    static bool checkWinX(Char[,] gameboard){
-      if (gameboard[0, 0] == 'X' && gameboard[0, 1] == 'X' && gameboard[0, 2] == 'X'){
-        return true;
-      }
-      if (gameboard[1, 0] == 'X' && gameboard[1, 1] == 'X' && gameboard[1, 2] == 'X'){
-        return true;
-      }
-      if (gameboard[2, 0] == 'X' && gameboard[2, 1] == 'X' && gameboard[2, 2] == 'X'){
-        return true;
-      }
-      if (gameboard[0, 0] == 'X' && gameboard[1, 0] == 'X' && gameboard[2, 0] == 'X'){
-        return true;
-      }
-      if (gameboard[0, 1] == 'X' && gameboard[1, 1] == 'X' && gameboard[2, 1] == 'X'){
-        return true;
-      }
-      if (gameboard[0, 2] == 'X' && gameboard[1, 2] == 'X' && gameboard[2, 2] == 'X'){
-        return true;
-      }
-      if (gameboard[0, 0] == 'X' && gameboard[1, 1] == 'X' && gameboard[2, 2] == 'X'){
-        return true;
-      }
-      if (gameboard[0, 2] == 'X' && gameboard[1, 1] == 'X' && gameboard[2, 0] == 'X'){
-        return true;
-      }
+        static bool CheckWinX(Char[,] gameboard)
+        {
+            if (gameboard[0, 0] == 'X' && gameboard[0, 1] == 'X' && gameboard[0, 2] == 'X')
+            {
+                return true;
+            }
+            if (gameboard[1, 0] == 'X' && gameboard[1, 1] == 'X' && gameboard[1, 2] == 'X')
+            {
+                return true;
+            }
+            if (gameboard[2, 0] == 'X' && gameboard[2, 1] == 'X' && gameboard[2, 2] == 'X')
+            {
+                return true;
+            }
+            if (gameboard[0, 0] == 'X' && gameboard[1, 0] == 'X' && gameboard[2, 0] == 'X')
+            {
+                return true;
+            }
+            if (gameboard[0, 1] == 'X' && gameboard[1, 1] == 'X' && gameboard[2, 1] == 'X')
+            {
+                return true;
+            }
+            if (gameboard[0, 2] == 'X' && gameboard[1, 2] == 'X' && gameboard[2, 2] == 'X')
+            {
+                return true;
+            }
+            if (gameboard[0, 0] == 'X' && gameboard[1, 1] == 'X' && gameboard[2, 2] == 'X')
+            {
+                return true;
+            }
+            if (gameboard[0, 2] == 'X' && gameboard[1, 1] == 'X' && gameboard[2, 0] == 'X')
+            {
+                return true;
+            }
 
-      return false;
+            return false;
+        }
+
+        static bool CheckWinO(Char[,] gameboard)
+        {
+            if (gameboard[0, 0] == 'O' && gameboard[0, 1] == 'O' && gameboard[0, 2] == 'O')
+            {
+                return true;
+            }
+            if (gameboard[1, 0] == 'O' && gameboard[1, 1] == 'O' && gameboard[1, 2] == 'O')
+            {
+                return true;
+            }
+            if (gameboard[2, 0] == 'O' && gameboard[2, 1] == 'O' && gameboard[2, 2] == 'O')
+            {
+                return true;
+            }
+            if (gameboard[0, 0] == 'O' && gameboard[1, 0] == 'O' && gameboard[2, 0] == 'O')
+            {
+                return true;
+            }
+            if (gameboard[0, 1] == 'O' && gameboard[1, 1] == 'O' && gameboard[2, 1] == 'O')
+            {
+                return true;
+            }
+            if (gameboard[0, 2] == 'O' && gameboard[1, 2] == 'O' && gameboard[2, 2] == 'O')
+            {
+                return true;
+            }
+            if (gameboard[0, 0] == 'O' && gameboard[1, 1] == 'O' && gameboard[2, 2] == 'O')
+            {
+                return true;
+            }
+            if (gameboard[0, 2] == 'O' && gameboard[1, 1] == 'O' && gameboard[2, 0] == 'O')
+            {
+                return true;
+            }
+
+            return false;
+        }
+        static bool CheckDraw(Char[,] gameboard)
+        {
+            if (
+            (gameboard[0, 0] == 'X' || gameboard[0, 0] == 'O') &&
+            (gameboard[0, 1] == 'X' || gameboard[0, 1] == 'O') &&
+            (gameboard[0, 2] == 'X' || gameboard[0, 2] == 'O') &&
+            (gameboard[1, 0] == 'X' || gameboard[1, 0] == 'O') &&
+            (gameboard[1, 1] == 'X' || gameboard[1, 1] == 'O') &&
+            (gameboard[1, 2] == 'X' || gameboard[1, 2] == 'O') &&
+            (gameboard[2, 0] == 'X' || gameboard[2, 0] == 'O') &&
+            (gameboard[2, 1] == 'X' || gameboard[2, 1] == 'O') &&
+            (gameboard[2, 2] == 'X' || gameboard[2, 2] == 'O')){
+                return true;
+            }
+            
+            return false;
+        }
     }
-
-    static bool checkWinO(Char[,] gameboard){
-      if (gameboard[0, 0] == 'O' && gameboard[0, 1] == 'O' && gameboard[0, 2] == 'O'){
-        return true;
-      }
-      if (gameboard[1, 0] == 'O' && gameboard[1, 1] == 'O' && gameboard[1, 2] == 'O'){
-        return true;
-      }
-      if (gameboard[2, 0] == 'O' && gameboard[2, 1] == 'O' && gameboard[2, 2] == 'O'){
-        return true;
-      }
-      if (gameboard[0, 0] == 'O' && gameboard[1, 0] == 'O' && gameboard[2, 0] == 'O'){
-        return true;
-      }
-      if (gameboard[0, 1] == 'O' && gameboard[1, 1] == 'O' && gameboard[2, 1] == 'O'){
-        return true;
-      }
-      if (gameboard[0, 2] == 'O' && gameboard[1, 2] == 'O' && gameboard[2, 2] == 'O'){
-        return true;
-      }
-      if (gameboard[0, 0] == 'O' && gameboard[1, 1] == 'O' && gameboard[2, 2] == 'O'){
-        return true;
-      }
-      if (gameboard[0, 2] == 'O' && gameboard[1, 1] == 'O' && gameboard[2, 0] == 'O'){
-        return true;
-      }
-
-      return false;
-    }
-  }
 }
